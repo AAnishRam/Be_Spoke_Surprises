@@ -46,6 +46,31 @@ public class ProductsController {
             return new ResponseEntity<>(obj,HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/api/products/{offset}/{pagesize}/{field}")     
+    public List<Products> getsorting(@PathVariable int offset,@PathVariable int pagesize,@PathVariable String field)     
+    {         
+        return ps.getsort(offset,pagesize,field);     
+    }
+
+    @GetMapping("/api/products/{offset}/{pagesize}")     
+    public List<Products> get(@PathVariable int offset,@PathVariable int pagesize)     
+    {         
+        return ps.page(pagesize, offset);     
+    }
+
+    @GetMapping("/api/products/sortBy/{field}")     
+    public List<Products> g(@PathVariable String field)     
+    {         
+        return ps.sort(field);     
+    }
+
+    @GetMapping("/api/products/filterBy/{price}")     
+    public List<Products> g(@PathVariable int price)     
+    {         
+        return ps.filterByprice(price);     
+    }
+
+
     @PutMapping("api/products/{id}")
     public ResponseEntity<Products> updateProductsController(@PathVariable int id, @RequestBody Products pe)
     {
@@ -63,4 +88,6 @@ public class ProductsController {
         else
             return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
     }
+
+
 }

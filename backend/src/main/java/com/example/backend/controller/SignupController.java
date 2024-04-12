@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.model.Signup;
+import com.example.backend.repository.AddressRepo;
 import com.example.backend.service.SignupService;
 
 @RestController
@@ -21,13 +22,16 @@ public class SignupController {
     @Autowired
     SignupService ss;
 
+    @Autowired
+    AddressRepo ar;
+
     @PostMapping("/api/signup")
     public ResponseEntity<Signup> postUser(@RequestBody Signup signup)
     {
         Signup obj = ss.create(signup);
         return new ResponseEntity<>(obj,HttpStatus.CREATED);
     }
-
+    
     @GetMapping("/api/signup")
     public ResponseEntity<List<Signup>> getAllUserController()
     {
